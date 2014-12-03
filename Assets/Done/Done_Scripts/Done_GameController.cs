@@ -33,7 +33,7 @@ public class Done_GameController : MonoBehaviour
 	{
 		if (restart)
 		{
-			if (Input.GetKeyDown (KeyCode.R))
+			if ( (Input.GetKeyDown (KeyCode.R)) || (Input.touchCount > 0) )
 			{
 				Application.LoadLevel (Application.loadedLevel);
 			}
