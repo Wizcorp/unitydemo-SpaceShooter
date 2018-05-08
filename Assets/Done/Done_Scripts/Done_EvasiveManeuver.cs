@@ -13,9 +13,11 @@ public class Done_EvasiveManeuver : MonoBehaviour
 
 	private float currentSpeed;
 	private float targetManeuver;
+	private Rigidbody rigidbody;
 
 	void Start ()
 	{
+		rigidbody = GetComponent<Rigidbody>();
 		currentSpeed = rigidbody.velocity.z;
 		StartCoroutine(Evade());
 	}

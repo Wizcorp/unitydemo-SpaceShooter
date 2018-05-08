@@ -7,9 +7,12 @@ public class Done_WeaponController : MonoBehaviour
 	public Transform shotSpawn;
 	public float fireRate;
 	public float delay;
+	
+	private AudioSource audio;
 
 	void Start ()
 	{
+		audio = GetComponent<AudioSource>();
 		InvokeRepeating ("Fire", delay, fireRate);
 	}
 
