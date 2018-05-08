@@ -1,5 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class Done_GameController : MonoBehaviour
 {
@@ -10,9 +12,10 @@ public class Done_GameController : MonoBehaviour
 	public float startWait;
 	public float waveWait;
 	
-	public GUIText scoreText;
-	public GUIText restartText;
-	public GUIText gameOverText;
+	public Text scoreText;
+	//public Text restartText;
+	public Button restartButton;
+	public Text gameOverText;
 	
 	private bool gameOver;
 	private bool restart;
@@ -22,21 +25,22 @@ public class Done_GameController : MonoBehaviour
 	{
 		gameOver = false;
 		restart = false;
-		restartText.text = "";
+		//restartText.text = "";
+		restartButton.gameObject.SetActive(false);
 		gameOverText.text = "";
 		score = 0;
 		UpdateScore ();
 		StartCoroutine (SpawnWaves ());
 	}
 	
+	
 	void Update ()
 	{
-		if (restart)
+		if (gameOver)
 		{
-			if (Input.GetKeyDown (KeyCode.R))
-			{
-				Application.LoadLevel (Application.loadedLevel);
-			}
+			//restartText.text = "Press 'R' for Restart";
+			restartButton.gameObject.SetActive(true);
+			restart = true;
 		}
 	}
 	
@@ -53,14 +57,8 @@ public class Done_GameController : MonoBehaviour
 				Instantiate (hazard, spawnPosition, spawnRotation);
 				yield return new WaitForSeconds (spawnWait);
 			}
-			yield return new WaitForSeconds (waveWait);
+			yield return new WaitForSeconds (waveWait);		
 			
-			if (gameOver)
-			{
-				restartText.text = "Press 'R' for Restart";
-				restart = true;
-				break;
-			}
 		}
 	}
 	
@@ -79,5 +77,16 @@ public class Done_GameController : MonoBehaviour
 	{
 		gameOverText.text = "Game Over!";
 		gameOver = true;
+	}
+
+	public void RestartGame ()
+	{
+		if(restart)
+		SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+	}
+
+	public void QuitGame ()
+	{
+		Application.Quit();
 	}
 }

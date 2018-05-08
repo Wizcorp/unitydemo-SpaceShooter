@@ -19,6 +19,15 @@ public class Done_PlayerController : MonoBehaviour
 	 
 	private float nextFire;
 	
+	private Rigidbody rigidbody;
+	private AudioSource audio;
+
+	void Start ()
+	{
+		rigidbody = GetComponent<Rigidbody>();
+		audio = GetComponent<AudioSource>();
+	}
+
 	void Update ()
 	{
 		if (Input.GetButton("Fire1") && Time.time > nextFire) 
@@ -29,7 +38,21 @@ public class Done_PlayerController : MonoBehaviour
 		}
 	}
 
-	void FixedUpdate ()
+	void AccelerometerMovement()
+	{
+		Vector3 dir = Vector3.zero;
+		dir.x = Mathf.Clamp (Input.acceleration.x, boundary.xMin, boundary.xMax);
+		dir.z = Mathf.Clamp (Input.acceleration.y, boundary.zMin, boundary.zMax);
+
+		if (dir.sqrMagnitude > 1)
+			dir.Normalize();
+
+		dir *= Time.deltaTime;
+
+		rigidbody.transform.Translate (dir * speed * 2);
+	}
+
+	void KeyboardMovement()
 	{
 		float moveHorizontal = Input.GetAxis ("Horizontal");
 		float moveVertical = Input.GetAxis ("Vertical");
@@ -45,5 +68,11 @@ public class Done_PlayerController : MonoBehaviour
 		);
 		
 		rigidbody.rotation = Quaternion.Euler (0.0f, 0.0f, rigidbody.velocity.x * -tilt);
+	}
+
+	void FixedUpdate ()
+	{
+		AccelerometerMovement();
+		KeyboardMovement();		
 	}
 }
