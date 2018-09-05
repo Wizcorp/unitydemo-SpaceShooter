@@ -14,9 +14,12 @@ public class Done_EvasiveManeuver : MonoBehaviour
 	private float currentSpeed;
 	private float targetManeuver;
 
+	private Rigidbody rigidBody;
+
 	void Start ()
 	{
-		currentSpeed = rigidbody.velocity.z;
+		rigidBody = GetComponent<Rigidbody> ();
+		currentSpeed = rigidBody.velocity.z;
 		StartCoroutine(Evade());
 	}
 	
@@ -34,15 +37,15 @@ public class Done_EvasiveManeuver : MonoBehaviour
 	
 	void FixedUpdate ()
 	{
-		float newManeuver = Mathf.MoveTowards (rigidbody.velocity.x, targetManeuver, smoothing * Time.deltaTime);
-		rigidbody.velocity = new Vector3 (newManeuver, 0.0f, currentSpeed);
-		rigidbody.position = new Vector3
+		float newManeuver = Mathf.MoveTowards (rigidBody.velocity.x, targetManeuver, smoothing * Time.deltaTime);
+		rigidBody.velocity = new Vector3 (newManeuver, 0.0f, currentSpeed);
+		rigidBody.position = new Vector3
 		(
-			Mathf.Clamp(rigidbody.position.x, boundary.xMin, boundary.xMax), 
+				Mathf.Clamp(rigidBody.position.x, boundary.xMin, boundary.xMax), 
 			0.0f, 
-			Mathf.Clamp(rigidbody.position.z, boundary.zMin, boundary.zMax)
+				Mathf.Clamp(rigidBody.position.z, boundary.zMin, boundary.zMax)
 		);
 		
-		rigidbody.rotation = Quaternion.Euler (0, 0, rigidbody.velocity.x * -tilt);
+		rigidBody.rotation = Quaternion.Euler (0, 0, rigidBody.velocity.x * -tilt);
 	}
 }
