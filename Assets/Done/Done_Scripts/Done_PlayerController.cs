@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 using System.Collections;
 
 [System.Serializable]
@@ -9,6 +10,9 @@ public class Done_Boundary
 
 public class Done_PlayerController : MonoBehaviour
 {
+	public Done_JoyStick joystick;
+	public Done_FireButton fireButton;
+
 	public float speed;
 	public float tilt;
 	public Done_Boundary boundary;
@@ -18,10 +22,10 @@ public class Done_PlayerController : MonoBehaviour
 	public float fireRate;
 	 
 	private float nextFire;
-	
-	void Update ()
+
+	void Update()
 	{
-		if (Input.GetButton("Fire1") && Time.time > nextFire) 
+		if(fireButton.pressed && Time.time > nextFire)
 		{
 			nextFire = Time.time + fireRate;
 			Instantiate(shot, shotSpawn.position, shotSpawn.rotation);
@@ -31,8 +35,10 @@ public class Done_PlayerController : MonoBehaviour
 
 	void FixedUpdate ()
 	{
-		float moveHorizontal = Input.GetAxis ("Horizontal");
-		float moveVertical = Input.GetAxis ("Vertical");
+		Vector2 value = joystick.GetJoystickValue ();
+
+		float moveHorizontal = value.x;
+		float moveVertical = value.y;
 
 		Vector3 movement = new Vector3 (moveHorizontal, 0.0f, moveVertical);
 		rigidbody.velocity = movement * speed;
