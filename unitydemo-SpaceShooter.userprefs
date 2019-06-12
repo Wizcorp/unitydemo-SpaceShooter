@@ -1,0 +1,15 @@
+﻿<Properties>
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="MonoDevelop.Default" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Done\Done_Scripts\Done_FireButton.cs">
+    <Files>
+      <File FileName="Assets\Done\Done_Scripts\Done_GameController.cs" Line="36" Column="47" />
+      <File FileName="Assets\Done\Done_Scripts\Done_PlayerController.cs" Line="33" Column="4" />
+      <File FileName="Assets\Done\Done_Scripts\Done_JoyStick.cs" Line="9" Column="26" />
+      <File FileName="Assets\Done\Done_Scripts\Done_FireButton.cs" Line="25" Column="23" />
+    </Files>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+</Properties>

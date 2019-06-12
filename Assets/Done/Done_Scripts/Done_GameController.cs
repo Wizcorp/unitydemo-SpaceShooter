@@ -33,7 +33,9 @@ public class Done_GameController : MonoBehaviour
 	{
 		if (restart)
 		{
-			if (Input.GetKeyDown (KeyCode.R))
+			//Converted this to click instead so that the game could be restarted
+			//if (Input.GetKeyDown (KeyCode.R))
+			if(Input.GetButton ("Fire1") || (Input.touchCount > 0 && Input.GetTouch (0).phase == TouchPhase.Began))
 			{
 				Application.LoadLevel (Application.loadedLevel);
 			}
@@ -57,7 +59,7 @@ public class Done_GameController : MonoBehaviour
 			
 			if (gameOver)
 			{
-				restartText.text = "Press 'R' for Restart";
+				restartText.text = "Press anywhere to restart";
 				restart = true;
 				break;
 			}
@@ -75,9 +77,9 @@ public class Done_GameController : MonoBehaviour
 		scoreText.text = "Score: " + score;
 	}
 	
-	public void GameOver ()
-	{
+	public void GameOver ()	{
 		gameOverText.text = "Game Over!";
 		gameOver = true;
 	}
+
 }
